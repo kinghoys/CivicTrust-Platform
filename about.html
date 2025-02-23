@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About & Contact - CivicTrust</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a365d',
+                        secondary: '#2563eb',
+                        accent: '#60a5fa',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        danger: '#EF4444'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Enhanced Gradients and Effects */
+        .gradient-primary {
+            background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%);
+        }
+        .gradient-secondary {
+            background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%);
+        }
+        .gradient-accent {
+            background: linear-gradient(135deg, #60A5FA 0%, #93C5FD 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Navigation Styles */
+        .nav-link {
+            @apply flex items-center text-white/80 hover:text-white transition-colors relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            @apply absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300;
+        }
+
+        .nav-link:hover::after {
+            @apply w-full;
+        }
+
+        .btn-nav {
+            @apply px-4 py-2 flex items-center text-white/90 hover:text-white transition-colors;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 min-h-screen font-sans">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 gradient-primary text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <span class="text-xl font-bold">🔍 CivicTrust</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link hover:text-blue-200">Home</a>
+                    <a href="transparency-tracker.html" class="nav-link hover:text-blue-200">Transparency Tracker</a>
+                    <a href="fact-check-hub.html" class="nav-link hover:text-blue-200">Fact-Check Hub</a>
+                    <a href="report-issue.html" class="nav-link hover:text-blue-200">Report an Issue</a>
+                    <a href="news-insights.html" class="nav-link hover:text-blue-200">News & Insights</a>
+                    <a href="community-forum.html" class="nav-link hover:text-blue-200">Community Forum</a>
+                    <a href="about.html" class="nav-link hover:text-blue-200">About & Contact</a>
+                    <div class="flex items-center space-x-4">
+                        <button onclick="openModal('loginModal')" class="nav-link hover:text-blue-200">Login/Sign Up</button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white focus:outline-none" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="index.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Home</a>
+                    <a href="transparency-tracker.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Transparency Tracker</a>
+                    <a href="fact-check-hub.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Fact-Check Hub</a>
+                    <a href="report-issue.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Report an Issue</a>
+                    <a href="news-insights.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">News & Insights</a>
+                    <a href="community-forum.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Community Forum</a>
+                    <a href="about.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">About & Contact</a>
+                    <button onclick="openModal('loginModal')" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md w-full text-left">Login/Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pt-24">
+        <!-- Mission Section -->
+        <div class="text-center mb-16">
+            <h1 class="text-4xl font-bold mb-4">About CivicTrust</h1>
+            <p class="text-white font-semibold text-lg md:text-xl">Empowering citizens with facts, not propaganda. We're building a more transparent and accountable society through technology and community engagement.</p>
+        </div>
+
+        <!-- Our Story -->
+        <div class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-gray-800 text-2xl font-bold mb-6">Our Story</h2>
+                <div class="prose max-w-none">
+                    <p class="text-gray-600 font-bold mb-4">CivicTrust was born from a simple yet powerful idea: in the age of misinformation, citizens deserve a reliable platform to verify claims, report issues, and engage in meaningful civic discourse.</p>
+                    <p class="text-gray-600 font-bold mb-4">Founded in 2024, we've combined cutting-edge AI technology with journalistic expertise to create a platform that serves as a beacon of truth in public discourse. Our AI-powered fact-checking system works alongside experienced journalists to provide rapid, accurate verification of public claims.</p>
+                    <p class="text-gray-600 font-bold">Today, we're proud to serve thousands of citizens, helping them make informed decisions and actively participate in their communities' governance.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Aim-->
+        <div class="mb-16">
+            <h2 class="text-2xl font-bold mb-8">Meet Our Team</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="team-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://placehold.co/400x300" alt="Team Member" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2"></h3>
+                        <p class="text-gray-800 text-2xl font-bold mb-6">Enhancing Accountability & Clarity</p>
+                        <p class="text-sm text-gray-500 mb-4">Leading our AI fact-checking system development with 15+ years of experience in machine learning.Provide users with a clear, real-time view of transactions, fund allocations, and activities to promote trust and transparency.</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="social-icon text-gray-400"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-icon text-gray-400"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://placehold.co/400x300" alt="Team Member" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Michael Rodriguez</h3>
+                        <p class="text-gray-800 text-2xl font-bold mb-6">Security & Reliability</p>
+                        <p class="text-sm text-gray-500 mb-4">Implement a robust and secure system that prevents data manipulation, ensuring authenticity and reliability in tracking and displaying information.</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="social-icon text-gray-400"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-icon text-gray-400"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="team-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://placehold.co/400x300" alt="Team Member" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Emma Thompson</h3>
+                        <p class="text-gray-800 text-2xl font-bold mb-6">User-Friendly & Interactive Experience</p>
+                        <p class="text-sm text-gray-500 mb-4">Design an intuitive, visually appealing interface with interactive charts, search, and filtering to ensure ease of navigation and data accessibility.</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="social-icon text-gray-400"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-icon text-gray-400"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Partners Section -->
+        <div class="mb-16">
+            <h2 class="text-2xl font-bold mb-8">Our Partners</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg flex items-center justify-center">
+                    <img src="https://placehold.co/200x100" alt="Partner 1" class="max-h-12">
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg flex items-center justify-center">
+                    <img src="https://placehold.co/200x100" alt="Partner 2" class="max-h-12">
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg flex items-center justify-center">
+                    <img src="https://placehold.co/200x100" alt="Partner 3" class="max-h-12">
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg flex items-center justify-center">
+                    <img src="https://placehold.co/200x100" alt="Partner 4" class="max-h-12">
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6">Contact Us</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Get in Touch</h3>
+                        <form class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Name</label>
+                                <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Message</label>
+                                <textarea rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+                            </div>
+                            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Other Ways to Reach Us</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-blue-600 mr-3"></i>
+                                <span>contact@civictrust.org</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-blue-600 mr-3"></i>
+                                <span>+1 (555) 123-4567</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-blue-600 mr-3"></i>
+                                <span>123 Civic Center Drive<br>Innovation City, ST 12345</span>
+                            </div>
+                            <div class="flex space-x-4 mt-6">
+                                <a href="#" class="text-gray-400 hover:text-blue-600 transition">
+                                    <i class="fab fa-twitter text-2xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-blue-600 transition">
+                                    <i class="fab fa-facebook text-2xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-blue-600 transition">
+                                    <i class="fab fa-linkedin text-2xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-blue-600 transition">
+                                    <i class="fab fa-github text-2xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message. We will get back to you soon!');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Insights - CivicTrust</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a365d',
+                        secondary: '#2563eb',
+                        accent: '#60a5fa',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        danger: '#EF4444'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Enhanced Gradients and Effects */
+        .gradient-primary {
+            background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%);
+        }
+        .gradient-secondary {
+            background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%);
+        }
+        .gradient-accent {
+            background: linear-gradient(135deg, #60A5FA 0%, #93C5FD 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Navigation Styles */
+        .nav-link {
+            @apply flex items-center text-white/80 hover:text-white transition-colors relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            @apply absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300;
+        }
+
+        .nav-link:hover::after {
+            @apply w-full;
+        }
+
+        .btn-nav {
+            @apply px-4 py-2 flex items-center text-white/90 hover:text-white transition-colors;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 min-h-screen font-sans">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 gradient-primary text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <span class="text-xl font-bold">🔍 CivicTrust</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link hover:text-blue-200">Home</a>
+                    <a href="transparency-tracker.html" class="nav-link hover:text-blue-200">Transparency Tracker</a>
+                    <a href="fact-check-hub.html" class="nav-link hover:text-blue-200">Fact-Check Hub</a>
+                    <a href="report-issue.html" class="nav-link hover:text-blue-200">Report an Issue</a>
+                    <a href="news-insights.html" class="nav-link hover:text-blue-200">News & Insights</a>
+                    <a href="community-forum.html" class="nav-link hover:text-blue-200">Community Forum</a>
+                    <a href="about.html" class="nav-link hover:text-blue-200">About & Contact</a>
+                    <div class="flex items-center space-x-4">
+                        <button onclick="openModal('loginModal')" class="nav-link hover:text-blue-200">Login/Sign Up</button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white focus:outline-none" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="index.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Home</a>
+                    <a href="transparency-tracker.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Transparency Tracker</a>
+                    <a href="fact-check-hub.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Fact-Check Hub</a>
+                    <a href="report-issue.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Report an Issue</a>
+                    <a href="news-insights.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">News & Insights</a>
+                    <a href="community-forum.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Community Forum</a>
+                    <a href="about.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">About & Contact</a>
+                    <button onclick="openModal('loginModal')" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md w-full text-left">Login/Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pt-24">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold mb-4">News & Insights</h1>
+            <p class="text-white font-semibold text-lg md:text-xl">Expert-reviewed investigative reports and fact-checked news</p>
+        </div>
+
+        <!-- Featured Story -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-12">
+            <div class="relative">
+                <img src="D:\civic-trust\images\01JBF81HJPZWGRFGD8X0BJ0JFD.jpg" alt="Featured Story" class="w-full h-64 object-cover">
+                <span class="fact-check-label fact-check-true">✓ Verified</span>
+            </div>
+            <div class="p-6">
+                <div class="flex items-center mb-4">
+                    <span class="text-sm text-gray-500">February 23, 2024</span>
+                    <span class="mx-2">•</span>
+                    <span class="text-sm text-blue-600">Investigation</span>
+                </div>
+                <h2 class="text-2xl font-bold mb-4">Inside the City's New Transportation Initiative: A Comprehensive Analysis</h2>
+                <p class="text-gray-600 mb-4">Our team of experts breaks down the recently announced transportation initiative, examining its impact on communities and verifying claims made by officials.</p>
+                <div class="flex items-center">
+                    <img src="https://placehold.co/40x40" alt="Author" class="w-10 h-10 rounded-full">
+                    <div class="ml-4">
+                        <p class="font-medium">Sarah Johnson</p>
+                        <p class="text-sm text-gray-500">Senior Investigative Reporter</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Latest News Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <!-- News Card 1 -->
+            <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="relative">
+                    <img src="D:\civic-trust\images\maxresdefault.jpg" alt="News 1" class="w-full h-48 object-cover">
+                    <span class="fact-check-label fact-check-true">✓ Verified</span>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-2">
+                        <span class="text-sm text-gray-500">February 22, 2024</span>
+                        <span class="mx-2">•</span>
+                        <span class="text-sm text-blue-600">Policy</span>
+                    </div>
+                    <h3 class="font-bold mb-2">New Education Budget Approved: What It Means for Schools</h3>
+                    <p class="text-gray-600 text-sm">A detailed analysis of the recently approved education budget and its impact on local schools.</p>
+                </div>
+            </div>
+
+            <!-- News Card 2 -->
+            <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="relative">
+                    <img src="D:\civic-trust\images\download.jpg" alt="News 2" class="w-full h-48 object-cover">
+                    <span class="fact-check-label fact-check-false">× Disputed</span>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-2">
+                        <span class="text-sm text-gray-500">February 21, 2024</span>
+                        <span class="mx-2">•</span>
+                        <span class="text-sm text-blue-600">Investigation</span>
+                    </div>
+                    <h3 class="font-bold mb-2">Claims of Environmental Violations: The Truth Behind Recent Allegations</h3>
+                    <p class="text-gray-600 text-sm">Our investigation reveals the facts behind recent environmental violation claims.</p>
+                </div>
+            </div>
+
+            <!-- News Card 3 -->
+            <div class="news-card bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="relative">
+                    <img src="D:\civic-trust\images\third-year-community-centre-design-v0-6rq0ypndbl5c1.png" alt="News 3" class="w-full h-48 object-cover">
+                    <span class="fact-check-label fact-check-true">✓ Verified</span>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-2">
+                        <span class="text-sm text-gray-500">February 20, 2024</span>
+                        <span class="mx-2">•</span>
+                        <span class="text-sm text-blue-600">Community</span>
+                    </div>
+                    <h3 class="font-bold mb-2">Community Center Renovation Project Exceeds Expectations</h3>
+                    <p class="text-gray-600 text-sm">Local community center renovation completed ahead of schedule and under budget.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Podcasts & Video Section -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Featured Podcasts & Videos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Video -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9">
+                        <img src="D:\civic-trust\images\download (1).jpg" alt="Video Thumbnail" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold mb-2">Understanding the New City Budget</h3>
+                        <p class="text-gray-600 text-sm mb-4">A visual breakdown of the city's budget allocation and its impact on various sectors.</p>
+                        <button class="flex items-center text-blue-600">
+                            <i class="fas fa-play-circle mr-2"></i>
+                            Watch Video
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Podcast -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9">
+                        <img src="D:\civic-trust\images\download (2).jpg" alt="Podcast Thumbnail" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold mb-2">CivicTalk: The Future of Public Transportation</h3>
+                        <p class="text-gray-600 text-sm mb-4">Expert discussion on upcoming changes to the city's public transportation system.</p>
+                        <button class="flex items-center text-blue-600">
+                            <i class="fas fa-headphones mr-2"></i>
+                            Listen Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

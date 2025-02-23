@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transparency Tracker - CivicTrust</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add ApexCharts for better visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a365d',
+                        secondary: '#2563eb',
+                        accent: '#60a5fa',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        danger: '#EF4444'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-primary {
+            background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .nav-link {
+            @apply flex items-center text-white/80 hover:text-white transition-colors relative;
+        }
+        .nav-link::after {
+            content: '';
+            @apply absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300;
+        }
+        .nav-link:hover::after {
+            @apply w-full;
+        }
+        .transaction-item {
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 min-h-screen font-sans">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 gradient-primary text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <span class="text-xl font-bold">🔍 CivicTrust</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link hover:text-blue-200">Home</a>
+                    <a href="transparency-tracker.html" class="nav-link hover:text-blue-200">Transparency Tracker</a>
+                    <a href="fact-check-hub.html" class="nav-link hover:text-blue-200">Fact-Check Hub</a>
+                    <a href="report-issue.html" class="nav-link hover:text-blue-200">Report an Issue</a>
+                    <a href="news-insights.html" class="nav-link hover:text-blue-200">News & Insights</a>
+                    <a href="community-forum.html" class="nav-link hover:text-blue-200">Community Forum</a>
+                    <a href="about.html" class="nav-link hover:text-blue-200">About & Contact</a>
+                    <div class="flex items-center space-x-4">
+                        <button onclick="openModal('loginModal')" class="nav-link hover:text-blue-200">Login/Sign Up</button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white focus:outline-none" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="index.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Home</a>
+                    <a href="transparency-tracker.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Transparency Tracker</a>
+                    <a href="fact-check-hub.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Fact-Check Hub</a>
+                    <a href="report-issue.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Report an Issue</a>
+                    <a href="news-insights.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">News & Insights</a>
+                    <a href="community-forum.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Community Forum</a>
+                    <a href="about.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">About & Contact</a>
+                    <button onclick="openModal('loginModal')" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md w-full text-left">Login/Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pt-24">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold mb-4 text-white">Budget Transparency Tracker</h1>
+            <p class="text-white font-semibold text-lg md:text-xl">Real-time tracking of public spending and budget allocation</p>
+        </div>
+
+        <!-- Budget Overview Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="glass-card rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-2">Total Budget</h3>
+                <p class="text-3xl font-bold text-blue-600" id="totalBudget">$0</p>
+                <p class="text-sm text-gray-600">Fiscal Year 2025</p>
+            </div>
+            <div class="glass-card rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-2">Spent</h3>
+                <p class="text-3xl font-bold text-green-600" id="spentAmount">$0</p>
+                <p class="text-sm text-gray-600">Updated in real-time</p>
+            </div>
+            <div class="glass-card rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-2">Remaining</h3>
+                <p class="text-3xl font-bold text-orange-600" id="remainingAmount">$0</p>
+                <p class="text-sm text-gray-600">Available funds</p>
+            </div>
+        </div>
+
+        <!-- Budget Categories Chart -->
+        <div class="glass-card rounded-lg p-6 mb-8">
+            <h3 class="text-xl font-semibold mb-4">Budget Allocation by Category</h3>
+            <div id="budgetChart" class="w-full h-96"></div>
+        </div>
+
+        <!-- Live Transactions -->
+        <div class="glass-card rounded-lg p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold">Live Transactions</h3>
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span class="text-sm text-gray-600">Live Updates</span>
+                </div>
+            </div>
+            <div class="overflow-hidden">
+                <div id="transactionsList" class="space-y-4"></div>
+            </div>
+        </div>
+
+        <!-- Budget Analytics Dashboard -->
+        <div class="mt-8 glass-card p-6 rounded-lg">
+            <h3 class="text-2xl font-bold mb-6">Budget Analytics Dashboard</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Department Performance -->
+                <div class="bg-white/30 p-4 rounded-lg backdrop-blur-sm">
+                    <h4 class="text-lg font-semibold mb-4">Department Performance</h4>
+                    <div id="deptPerformanceChart" class="h-64"></div>
+                    <div class="mt-4">
+                        <select id="deptSelect" class="w-full p-2 rounded border" onchange="updateDeptPerformance()">
+                            <option value="all">All Departments</option>
+                            <option value="education">Education</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="infrastructure">Infrastructure</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Spending Patterns -->
+                <div class="bg-white/30 p-4 rounded-lg backdrop-blur-sm">
+                    <h4 class="text-lg font-semibold mb-4">Spending Patterns</h4>
+                    <div id="spendingPatternChart" class="h-64"></div>
+                    <div class="mt-4 flex space-x-2">
+                        <button onclick="updateTimeframe('weekly')" class="px-3 py-1 rounded bg-blue-600 text-white">Weekly</button>
+                        <button onclick="updateTimeframe('monthly')" class="px-3 py-1 rounded bg-blue-600 text-white">Monthly</button>
+                        <button onclick="updateTimeframe('yearly')" class="px-3 py-1 rounded bg-blue-600 text-white">Yearly</button>
+                    </div>
+                </div>
+
+                <!-- Budget Efficiency -->
+                <div class="bg-white/30 p-4 rounded-lg backdrop-blur-sm">
+                    <h4 class="text-lg font-semibold mb-4">Budget Efficiency</h4>
+                    <div id="efficiencyGauge" class="h-64"></div>
+                    <div class="mt-4 text-center">
+                        <span class="text-2xl font-bold" id="efficiencyScore">94%</span>
+                        <p class="text-sm text-gray-600">Overall Efficiency Score</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Budget Planning -->
+        <div class="mt-8 glass-card p-6 rounded-lg">
+            <h3 class="text-2xl font-bold mb-6">Interactive Budget Planning</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Budget Allocation Tool -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Budget Allocation Tool</h4>
+                    <div id="budgetSliders" class="space-y-4">
+                        <!-- Sliders will be dynamically added here -->
+                    </div>
+                    <div class="mt-6 flex space-x-4">
+                        <button onclick="saveBudgetPlan()" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+                            Save Plan
+                        </button>
+                        <button onclick="resetBudgetPlan()" class="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Impact Analysis -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Impact Analysis</h4>
+                    <div id="impactAnalysis" class="space-y-4">
+                        <!-- Impact metrics will be shown here -->
+                    </div>
+                    <div id="impactChart" class="h-64 mt-4"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Community Feedback & Voting -->
+        <div class="mt-8 glass-card p-6 rounded-lg">
+            <h3 class="text-2xl font-bold mb-6">Community Feedback & Voting</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Active Proposals -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Active Budget Proposals</h4>
+                    <div id="proposalsList" class="space-y-4">
+                        <!-- Proposals will be dynamically added here -->
+                    </div>
+                    <button onclick="submitNewProposal()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                        Submit New Proposal
+                    </button>
+                </div>
+
+                <!-- Voting Results -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Voting Results</h4>
+                    <div id="votingResults" class="h-64"></div>
+                    <div class="mt-4 p-4 bg-blue-50 rounded">
+                        <h5 class="font-semibold mb-2">Current Participation</h5>
+                        <div class="flex justify-between items-center">
+                            <span>Total Votes:</span>
+                            <span id="totalVotes" class="font-bold">12,458</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>Active Voters:</span>
+                            <span id="activeVoters" class="font-bold">3,842</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Initialize budget data
+            let budgetData = {
+                total: 10000000,
+                spent: 4500000,
+                remaining: 5500000,
+                categories: {
+                    'Infrastructure': 3000000,
+                    'Education': 2500000,
+                    'Healthcare': 2000000,
+                    'Public Safety': 1500000,
+                    'Environmental': 1000000
+                }
+            };
+
+            // Format numbers as currency
+            function formatCurrency(amount) {
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(amount);
+            }
+
+            // Update budget overview cards
+            function updateBudgetCards() {
+                document.getElementById('totalBudget').textContent = formatCurrency(budgetData.total);
+                document.getElementById('spentAmount').textContent = formatCurrency(budgetData.spent);
+                document.getElementById('remainingAmount').textContent = formatCurrency(budgetData.remaining);
+            }
+
+            // Initialize budget categories chart
+            function initBudgetChart() {
+                const categories = Object.keys(budgetData.categories);
+                const values = Object.values(budgetData.categories);
+
+                const options = {
+                    series: [{
+                        data: values
+                    }],
+                    chart: {
+                        type: 'bar',
+                        height: 350,
+                        toolbar: {
+                            show: false
+                        }
+                    },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 4,
+                            horizontal: true,
+                        }
+                    },
+                    colors: ['#60A5FA'],
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function(val) {
+                            return formatCurrency(val);
+                        }
+                    },
+                    xaxis: {
+                        categories: categories,
+                        labels: {
+                            style: {
+                                colors: '#4B5563'
+                            }
+                        }
+                    },
+                    yaxis: {
+                        labels: {
+                            style: {
+                                colors: '#4B5563'
+                            }
+                        }
+                    }
+                };
+
+                const chart = new ApexCharts(document.querySelector("#budgetChart"), options);
+                chart.render();
+            }
+
+            // Generate random transaction
+            function generateTransaction() {
+                const departments = ['Infrastructure', 'Education', 'Healthcare', 'Public Safety', 'Environmental'];
+                const types = ['Contract Payment', 'Equipment Purchase', 'Service Fee', 'Maintenance', 'Project Funding'];
+                const amounts = [5000, 10000, 15000, 20000, 25000, 30000];
+
+                return {
+                    department: departments[Math.floor(Math.random() * departments.length)],
+                    type: types[Math.floor(Math.random() * types.length)],
+                    amount: amounts[Math.floor(Math.random() * amounts.length)],
+                    timestamp: new Date().toLocaleTimeString()
+                };
+            }
+
+            // Add new transaction to the list
+            function addTransaction(transaction) {
+                const transactionsList = document.getElementById('transactionsList');
+                const transactionElement = document.createElement('div');
+                transactionElement.className = 'transaction-item bg-white p-4 rounded-lg shadow';
+                transactionElement.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h4 class="font-semibold">${transaction.department}</h4>
+                            <p class="text-sm text-gray-600">${transaction.type}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-semibold text-green-600">${formatCurrency(transaction.amount)}</p>
+                            <p class="text-xs text-gray-500">${transaction.timestamp}</p>
+                        </div>
+                    </div>
+                `;
+
+                // Keep only the last 5 transactions
+                if (transactionsList.children.length >= 5) {
+                    transactionsList.removeChild(transactionsList.lastChild);
+                }
+
+                transactionsList.insertBefore(transactionElement, transactionsList.firstChild);
+
+                // Update spent and remaining amounts
+                budgetData.spent += transaction.amount;
+                budgetData.remaining -= transaction.amount;
+                updateBudgetCards();
+            }
+
+            // Initialize the page
+            document.addEventListener('DOMContentLoaded', function() {
+                updateBudgetCards();
+                initBudgetChart();
+
+                // Generate new transactions periodically
+                setInterval(() => {
+                    addTransaction(generateTransaction());
+                }, 2000);
+            });
+
+            // Mobile menu toggle
+            function toggleMobileMenu() {
+                const menu = document.getElementById('mobileMenu');
+                menu.classList.toggle('hidden');
+            }
+
+            // Initialize all new components
+            document.addEventListener('DOMContentLoaded', function() {
+                initializeDashboard();
+                initializeBudgetPlanning();
+                initializeVoting();
+                
+                // Update data periodically
+                setInterval(updateLiveData, 5000);
+            });
+
+            function initializeDashboard() {
+                // Department Performance Chart
+                const deptChart = new ApexCharts(document.querySelector("#deptPerformanceChart"), {
+                    series: [{
+                        name: 'Performance',
+                        data: [80, 85, 75, 90]
+                    }],
+                    chart: {
+                        type: 'radar',
+                        height: 250
+                    },
+                    xaxis: {
+                        categories: ['Education', 'Healthcare', 'Infrastructure', 'Technology']
+                    }
+                });
+                deptChart.render();
+
+                // Spending Pattern Chart
+                const spendingChart = new ApexCharts(document.querySelector("#spendingPatternChart"), {
+                    series: [{
+                        name: 'Spending',
+                        data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+                    }],
+                    chart: {
+                        type: 'area',
+                        height: 250
+                    }
+                });
+                spendingChart.render();
+
+                // Efficiency Gauge
+                const efficiencyGauge = new ApexCharts(document.querySelector("#efficiencyGauge"), {
+                    series: [94],
+                    chart: {
+                        type: 'radialBar',
+                        height: 250
+                    },
+                    plotOptions: {
+                        radialBar: {
+                            hollow: {
+                                size: '70%'
+                            }
+                        }
+                    }
+                });
+                efficiencyGauge.render();
+            }
+
+            function initializeBudgetPlanning() {
+                const departments = ['Education', 'Healthcare', 'Infrastructure', 'Technology'];
+                const slidersContainer = document.getElementById('budgetSliders');
+
+                departments.forEach(dept => {
+                    slidersContainer.innerHTML += `
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <label class="text-sm font-medium">${dept}</label>
+                                <span class="text-sm" id="${dept.toLowerCase()}Value">$0</span>
+                            </div>
+                            <input type="range" 
+                                   id="${dept.toLowerCase()}Slider"
+                                   min="0" 
+                                   max="1000000" 
+                                   value="0"
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                                   oninput="updateBudgetAllocation('${dept}')">
+                        </div>
+                    `;
+                });
+
+                // Initialize impact chart
+                const impactChart = new ApexCharts(document.querySelector("#impactChart"), {
+                    series: [{
+                        name: 'Impact Score',
+                        data: [0, 0, 0, 0]
+                    }],
+                    chart: {
+                        type: 'bar',
+                        height: 250
+                    },
+                    xaxis: {
+                        categories: departments
+                    }
+                });
+                impactChart.render();
+            }
+
+            function initializeVoting() {
+                const votingChart = new ApexCharts(document.querySelector("#votingResults"), {
+                    series: [44, 55, 41, 17],
+                    chart: {
+                        type: 'donut',
+                        height: 250
+                    },
+                    labels: ['Proposal 1', 'Proposal 2', 'Proposal 3', 'Proposal 4']
+                });
+                votingChart.render();
+            }
+
+            function updateLiveData() {
+                // Update charts and metrics
+                document.getElementById('efficiencyScore').textContent = Math.floor(Math.random() * 10 + 90) + '%';
+                document.getElementById('totalVotes').textContent = (12458 + Math.floor(Math.random() * 100)).toLocaleString();
+                document.getElementById('activeVoters').textContent = (3842 + Math.floor(Math.random() * 50)).toLocaleString();
+            }
+
+            function updateBudgetAllocation(department) {
+                const slider = document.getElementById(`${department.toLowerCase()}Slider`);
+                const valueDisplay = document.getElementById(`${department.toLowerCase()}Value`);
+                valueDisplay.textContent = formatCurrency(slider.value);
+            }
+
+            function saveBudgetPlan() {
+                alert('Budget plan saved successfully!');
+            }
+
+            function resetBudgetPlan() {
+                document.querySelectorAll('input[type="range"]').forEach(slider => {
+                    slider.value = 0;
+                    const dept = slider.id.replace('Slider', '');
+                    document.getElementById(`${dept}Value`).textContent = '$0';
+                });
+            }
+
+            function submitNewProposal() {
+                alert('New proposal submission form will open here');
+            }
+        </script>
+    </main>
+</body>
+</html>

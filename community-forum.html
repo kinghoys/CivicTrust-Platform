@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Forum - CivicTrust</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a365d',
+                        secondary: '#2563eb',
+                        accent: '#60a5fa',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        danger: '#EF4444'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Enhanced Gradients and Effects */
+        .gradient-primary {
+            background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%);
+        }
+        .gradient-secondary {
+            background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%);
+        }
+        .gradient-accent {
+            background: linear-gradient(135deg, #60A5FA 0%, #93C5FD 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Navigation Styles */
+        .nav-link {
+            @apply flex items-center text-white/80 hover:text-white transition-colors relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            @apply absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300;
+        }
+
+        .nav-link:hover::after {
+            @apply w-full;
+        }
+
+        .btn-nav {
+            @apply px-4 py-2 flex items-center text-white/90 hover:text-white transition-colors;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 min-h-screen font-sans">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 gradient-primary text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <span class="text-xl font-bold">🔍 CivicTrust</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link hover:text-blue-200">Home</a>
+                    <a href="transparency-tracker.html" class="nav-link hover:text-blue-200">Transparency Tracker</a>
+                    <a href="fact-check-hub.html" class="nav-link hover:text-blue-200">Fact-Check Hub</a>
+                    <a href="report-issue.html" class="nav-link hover:text-blue-200">Report an Issue</a>
+                    <a href="news-insights.html" class="nav-link hover:text-blue-200">News & Insights</a>
+                    <a href="community-forum.html" class="nav-link hover:text-blue-200">Community Forum</a>
+                    <a href="about.html" class="nav-link hover:text-blue-200">About & Contact</a>
+                    <div class="flex items-center space-x-4">
+                        <button onclick="openModal('loginModal')" class="nav-link hover:text-blue-200">Login/Sign Up</button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white focus:outline-none" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="index.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Home</a>
+                    <a href="transparency-tracker.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Transparency Tracker</a>
+                    <a href="fact-check-hub.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Fact-Check Hub</a>
+                    <a href="report-issue.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Report an Issue</a>
+                    <a href="news-insights.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">News & Insights</a>
+                    <a href="community-forum.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Community Forum</a>
+                    <a href="about.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">About & Contact</a>
+                    <button onclick="openModal('loginModal')" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md w-full text-left">Login/Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pt-24">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold mb-4">Community Forum</h1>
+            <p class="text-white font-semibold text-lg md:text-xl">Join the conversation on civic issues and policy discussions</p>
+        </div>
+
+        <!-- Create Discussion Button -->
+        <div class="mb-8">
+            <button onclick="openNewDiscussionModal()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition flex items-center">
+                <i class="fas fa-plus-circle mr-2"></i>
+                Start New Discussion
+            </button>
+        </div>
+
+        <!-- Forum Categories -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <button class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition text-left">
+                <i class="fas fa-landmark text-blue-600 mb-2"></i>
+                <h3 class="font-semibold">Policy Proposals</h3>
+                <p class="text-sm text-gray-500">156 discussions</p>
+            </button>
+            <button class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition text-left">
+                <i class="fas fa-users text-green-600 mb-2"></i>
+                <h3 class="font-semibold">Community Projects</h3>
+                <p class="text-sm text-gray-500">89 discussions</p>
+            </button>
+            <button class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition text-left">
+                <i class="fas fa-chart-line text-purple-600 mb-2"></i>
+                <h3 class="font-semibold">Budget & Finance</h3>
+                <p class="text-sm text-gray-500">124 discussions</p>
+            </button>
+            <button class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition text-left">
+                <i class="fas fa-leaf text-green-600 mb-2"></i>
+                <h3 class="font-semibold">Environment</h3>
+                <p class="text-sm text-gray-500">92 discussions</p>
+            </button>
+        </div>
+
+        <!-- Active Discussions -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Active Discussions</h2>
+            <div class="space-y-4">
+                <!-- Discussion Card 1 -->
+                <div class="discussion-card bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex items-start">
+                        <div class="flex flex-col items-center mr-6">
+                            <button class="vote-button text-gray-400 hover:text-blue-600">
+                                <i class="fas fa-chevron-up text-xl"></i>
+                            </button>
+                            <span class="text-lg font-semibold my-1">245</span>
+                            <button class="vote-button text-gray-400 hover:text-blue-600">
+                                <i class="fas fa-chevron-down text-xl"></i>
+                            </button>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Policy Proposal</span>
+                                <span class="mx-2">•</span>
+                                <span class="text-sm text-gray-500">Posted by John Doe</span>
+                                <span class="mx-2">•</span>
+                                <span class="text-sm text-gray-500">2 hours ago</span>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Proposal: Expanding Bike Lanes in Downtown Area</h3>
+                            <p class="text-gray-600 mb-4">Discussion on the proposed expansion of bike lanes in the downtown area to promote sustainable transportation.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <span class="mr-4"><i class="fas fa-comments mr-1"></i> 45 comments</span>
+                                <span><i class="fas fa-share mr-1"></i> Share</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Discussion Card 2 -->
+                <div class="discussion-card bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex items-start">
+                        <div class="flex flex-col items-center mr-6">
+                            <button class="vote-button text-gray-400 hover:text-blue-600">
+                                <i class="fas fa-chevron-up text-xl"></i>
+                            </button>
+                            <span class="text-lg font-semibold my-1">189</span>
+                            <button class="vote-button text-gray-400 hover:text-blue-600">
+                                <i class="fas fa-chevron-down text-xl"></i>
+                            </button>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Environment</span>
+                                <span class="mx-2">•</span>
+                                <span class="text-sm text-gray-500">Posted by Jane Smith</span>
+                                <span class="mx-2">•</span>
+                                <span class="text-sm text-gray-500">5 hours ago</span>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Community Garden Initiative in Local Parks</h3>
+                            <p class="text-gray-600 mb-4">Proposal to create community gardens in local parks to promote sustainable food production and community engagement.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <span class="mr-4"><i class="fas fa-comments mr-1"></i> 32 comments</span>
+                                <span><i class="fas fa-share mr-1"></i> Share</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Polls -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Active Polls</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Poll Card 1 -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Should we extend library hours?</h3>
+                    <div class="space-y-4 mb-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Yes, extend to 9 PM</span>
+                                <span>65%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>No change needed</span>
+                                <span>35%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 35%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500">1,245 votes • 2 days remaining</p>
+                </div>
+
+                <!-- Poll Card 2 -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Preferred location for new community center?</h3>
+                    <div class="space-y-4 mb-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Downtown</span>
+                                <span>45%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>North Side</span>
+                                <span>30%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>South Side</span>
+                                <span>25%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 25%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500">892 votes • 5 days remaining</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- New Discussion Modal -->
+    <div id="newDiscussionModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="bg-white rounded-xl p-8 max-w-2xl w-full">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">Start New Discussion</h3>
+                    <button onclick="closeNewDiscussionModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="newDiscussionForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Category</label>
+                        <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <option>Policy Proposals</option>
+                            <option>Community Projects</option>
+                            <option>Budget & Finance</option>
+                            <option>Environment</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Title</label>
+                        <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" placeholder="Enter discussion title">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" rows="4" placeholder="Describe your discussion topic..."></textarea>
+                    </div>
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="closeNewDiscussionModal()" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                            Create Discussion
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Modal functions
+        function openNewDiscussionModal() {
+            document.getElementById('newDiscussionModal').classList.remove('hidden');
+        }
+
+        function closeNewDiscussionModal() {
+            document.getElementById('newDiscussionModal').classList.add('hidden');
+        }
+
+        // Form submission
+        document.getElementById('newDiscussionForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Add discussion creation logic here
+            alert('Discussion created successfully!');
+            closeNewDiscussionModal();
+        });
+
+        // Vote buttons
+        document.querySelectorAll('.vote-button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

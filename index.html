@@ -1,0 +1,2850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicTrust - Unveiling Truth, Empowering Citizens</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a365d',
+                        secondary: '#2563eb',
+                        accent: '#60a5fa',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        danger: '#EF4444'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Enhanced Gradients and Effects */
+        .gradient-primary {
+            background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%);
+        }
+        .gradient-secondary {
+            background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%);
+        }
+        .gradient-accent {
+            background: linear-gradient(135deg, #60A5FA 0%, #93C5FD 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Enhanced Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .pulse-animation {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .slide-in {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+
+        /* Enhanced Backgrounds */
+        .pattern-bg {
+            background-color: #f8fafc;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a5b4fc' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .wave-bg {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%232563eb' fill-opacity='0.1' d='M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,224C672,213,768,171,864,149.3C960,128,1056,128,1152,149.3C1248,171,1344,213,1392,234.7L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: bottom;
+            background-repeat: no-repeat;
+        }
+
+        /* Enhanced Mobile Menu */
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Enhanced Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
+        /* Enhanced Form Elements */
+        .form-input {
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            transform: scale(1.02);
+        }
+
+        /* Card Hover Effects */
+        .hover-card {
+            transition: all 0.3s ease;
+        }
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Progress Bars */
+        .progress-bar {
+            transition: width 1s ease-in-out;
+        }
+
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+        }
+        .tooltip:before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px 8px;
+            background: #1f2937;
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .tooltip:hover:before {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Loading Animations */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loading-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Enhanced Buttons */
+        .btn-primary {
+            @apply px-6 py-3 gradient-primary text-white rounded-lg hover:opacity-90 transition transform hover:scale-105;
+        }
+        .btn-secondary {
+            @apply px-6 py-3 gradient-secondary text-white rounded-lg hover:opacity-90 transition transform hover:scale-105;
+        }
+        .btn-outline {
+            @apply px-6 py-3 border-2 border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition transform hover:scale-105;
+        }
+
+        /* Card Designs */
+        .feature-card {
+            @apply bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 hover:-translate-y-1;
+        }
+        .stat-card {
+            @apply bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300;
+        }
+        .news-card {
+            @apply bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300;
+        }
+
+        /* Enhanced Typography */
+        .heading-primary {
+            @apply text-4xl md:text-5xl font-bold leading-tight;
+        }
+        .heading-secondary {
+            @apply text-3xl md:text-4xl font-bold;
+        }
+        .text-gradient {
+            @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+        }
+
+        /* Social Media Icons */
+        .social-icon {
+            @apply w-10 h-10 rounded-full flex items-center justify-center transition duration-300;
+        }
+        .social-icon:hover {
+            @apply transform scale-110;
+        }
+
+        /* Badge Styles */
+        .badge {
+            @apply px-3 py-1 rounded-full text-sm font-semibold;
+        }
+        .badge-success {
+            @apply bg-green-100 text-green-600;
+        }
+        .badge-warning {
+            @apply bg-yellow-100 text-yellow-600;
+        }
+        .badge-danger {
+            @apply bg-red-100 text-red-600;
+        }
+
+        /* Timeline Design */
+        .timeline-item {
+            @apply relative pl-8 pb-8 border-l-2 border-gray-200;
+        }
+        .timeline-item:before {
+            content: '';
+            @apply absolute w-4 h-4 rounded-full bg-primary -left-[9px] top-0;
+        }
+        .timeline-item:last-child {
+            @apply border-l-0;
+        }
+
+        /* Chart Containers */
+        .chart-container {
+            @apply bg-white p-6 rounded-xl shadow-lg;
+            min-height: 300px;
+        }
+
+        /* Data Tables */
+        .data-table {
+            @apply w-full text-left;
+        }
+        .data-table th {
+            @apply px-6 py-3 bg-gray-50 text-gray-600 font-semibold;
+        }
+        .data-table td {
+            @apply px-6 py-4 border-t;
+        }
+        .data-table tr:hover {
+            @apply bg-gray-50;
+        }
+
+        /* Form Styles */
+        .form-group {
+            @apply mb-4;
+        }
+        .form-label {
+            @apply block text-sm font-medium text-gray-700 mb-1;
+        }
+        .form-input {
+            @apply w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent;
+        }
+        .form-select {
+            @apply w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent;
+        }
+        .form-checkbox {
+            @apply rounded text-primary focus:ring-primary;
+        }
+
+        /* Alert Styles */
+        .alert {
+            @apply p-4 rounded-lg mb-4;
+        }
+        .alert-success {
+            @apply bg-green-100 text-green-700;
+        }
+        .alert-warning {
+            @apply bg-yellow-100 text-yellow-700;
+        }
+        .alert-danger {
+            @apply bg-red-100 text-red-700;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            @apply fixed inset-0 bg-black bg-opacity-50 z-40;
+        }
+        .modal-content {
+            @apply fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl p-8 max-w-md w-full z-50;
+        }
+
+        /* Notification Styles */
+        .notification {
+            @apply fixed bottom-4 right-4 p-4 rounded-lg shadow-lg transform transition-transform duration-300;
+        }
+        .notification-enter {
+            transform: translateX(100%);
+        }
+        .notification-enter-active {
+            transform: translateX(0);
+        }
+        .notification-exit {
+            transform: translateX(0);
+        }
+        .notification-exit-active {
+            transform: translateX(100%);
+        }
+    </style>
+    <style>
+        /* Enhanced Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(to right, #60a5fa, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Enhanced Cards */
+        .verification-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .verification-card:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Trust Indicators */
+        .trust-indicator {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .trust-indicator:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced Buttons */
+        .btn-modern {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border-radius: 1rem;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-modern::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: all 0.5s ease;
+        }
+
+        .btn-modern:hover::after {
+            left: 100%;
+        }
+
+        /* Particle Network Enhancement */
+        .particles-network {
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.2) 1px, transparent 1px),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.2) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes moveBackground {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+
+        /* Glow Effects */
+        .glow {
+            position: relative;
+        }
+
+        .glow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            background: inherit;
+            filter: blur(20px);
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        /* Wave Animation */
+        .wave {
+            animation: wave 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes wave {
+            from { transform: translateY(0); }
+            to { transform: translateY(10px); }
+        }
+    </style>
+    <style>
+        /* Advanced 3D Card Effect */
+        .card-3d {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .card-3d-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .card-3d:hover .card-3d-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-3d-front, .card-3d-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+
+        .card-3d-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+
+        /* Floating Elements Animation */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Glowing Border Effect */
+        .glow-border {
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .glow-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #3b82f6, #60a5fa, #93c5fd, #3b82f6);
+            z-index: -1;
+            animation: glowingBorder 3s linear infinite;
+            background-size: 400%;
+            border-radius: 1rem;
+        }
+
+        @keyframes glowingBorder {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .5s, opacity 1s;
+        }
+
+        .ripple:active::after {
+            transform: scale(0, 0);
+            opacity: .3;
+            transition: 0s;
+        }
+
+        /* Morphing Background */
+        .morphing-bg {
+            background: linear-gradient(-45deg, #3b82f6, #1d4ed8, #2563eb, #60a5fa);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Typing Text Effect */
+        .typing-text {
+            overflow: hidden;
+            border-right: .15em solid #3b82f6;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end),
+                       blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #3b82f6; }
+        }
+
+        /* Parallax Scroll Effect */
+        .parallax-scroll {
+            transform: translateZ(0);
+            transition: transform 0.2s ease-out;
+        }
+
+        .parallax-scroll:hover {
+            transform: translateZ(50px);
+        }
+
+        /* Neon Text Effect */
+        .neon-text {
+            color: #fff;
+            text-shadow: 0 0 7px #fff,
+                        0 0 10px #fff,
+                        0 0 21px #fff,
+                        0 0 42px #3b82f6,
+                        0 0 82px #3b82f6,
+                        0 0 92px #3b82f6,
+                        0 0 102px #3b82f6,
+                        0 0 151px #3b82f6;
+            animation: neon 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes neon {
+            from { text-shadow: 0 0 7px #fff,
+                               0 0 10px #fff,
+                               0 0 21px #fff,
+                               0 0 42px #3b82f6,
+                               0 0 82px #3b82f6,
+                               0 0 92px #3b82f6,
+                               0 0 102px #3b82f6,
+                               0 0 151px #3b82f6; }
+            to { text-shadow: 0 0 5px #fff,
+                             0 0 8px #fff,
+                             0 0 18px #fff,
+                             0 0 38px #3b82f6,
+                             0 0 73px #3b82f6,
+                             0 0 80px #3b82f6,
+                             0 0 94px #3b82f6,
+                             0 0 140px #3b82f6; }
+        }
+
+        /* Shimmering Effect */
+        .shimmer {
+            background: linear-gradient(90deg, 
+                transparent 0%,
+                rgba(255, 255, 255, 0.2) 20%,
+                transparent 40%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 200% 0; }
+        }
+
+        /* Magnetic Button Effect */
+        .magnetic-btn {
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .magnetic-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        /* Particle Background */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            background: rgba(255, 255, 255, 0.5);
+            animation: particle-float 3s infinite ease-in-out;
+        }
+
+        @keyframes particle-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Interactive Stats Counter */
+        .stats-counter {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stats-counter:hover {
+            transform: scale(1.1);
+            color: #3b82f6;
+        }
+
+        /* Progress Bar Animation */
+        .progress-bar {
+            position: relative;
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            background: #3b82f6;
+            animation: progress 2s ease-in-out forwards;
+        }
+
+        @keyframes progress {
+            to { width: var(--progress, 100%); }
+        }
+
+        /* Expanding Search Bar */
+        .search-expand {
+            width: 40px;
+            padding: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .search-expand:focus {
+            width: 200px;
+            padding: 10px 20px;
+        }
+
+        /* Tilt Effect */
+        .tilt {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: transform 0.1s;
+        }
+
+        .tilt:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+        }
+
+        /* Wave Button Effect */
+        .wave-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wave-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 45%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: wave 2s infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+        }
+    </style>
+    <style>
+        /* Liquid Button Effect */
+        .liquid-btn {
+            position: relative;
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .liquid-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            border-radius: 8px;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s;
+            z-index: -1;
+        }
+
+        .liquid-btn:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Spotlight Effect */
+        .spotlight {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spotlight::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 50%);
+            transform: translate(-100%, -100%);
+            pointer-events: none;
+        }
+
+        .spotlight:hover::before {
+            animation: spotlight 1s ease;
+        }
+
+        @keyframes spotlight {
+            100% { transform: translate(50%, 50%); }
+        }
+
+        /* Rainbow Border */
+        .rainbow-border {
+            position: relative;
+            border-radius: 10px;
+            padding: 3px;
+            background: linear-gradient(
+                60deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            background-size: 300% 300%;
+            animation: rainbow-border 4s ease alternate infinite;
+        }
+
+        @keyframes rainbow-border {
+            0% { background-position: 0 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Floating Labels */
+        .float-label {
+            position: relative;
+        }
+
+        .float-label input {
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        .float-label label {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            padding: 0 0.5rem;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .float-label input:focus + label,
+        .float-label input:not(:placeholder-shown) + label {
+            top: 0;
+            font-size: 0.875rem;
+            color: #3b82f6;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                        0.025em 0.04em 0 #fffc00;
+            animation: glitch 725ms infinite;
+        }
+
+        .glitch span {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .glitch span:first-child {
+            animation: glitch 500ms infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+            transform: translate(-0.04em, -0.03em);
+            opacity: 0.75;
+        }
+
+        .glitch span:last-child {
+            animation: glitch 375ms infinite;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+            transform: translate(0.04em, 0.03em);
+            opacity: 0.75;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                             0.025em 0.04em 0 #fffc00; }
+            15% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                             0.025em 0.04em 0 #fffc00; }
+            16% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                             -0.05em -0.05em 0 #fffc00; }
+            49% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                             -0.05em -0.05em 0 #fffc00; }
+            50% { text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                             0 -0.04em 0 #fffc00; }
+            99% { text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                             0 -0.04em 0 #fffc00; }
+            100% { text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff,
+                             -0.04em -0.025em 0 #fffc00; }
+        }
+
+        /* Holographic Card */
+        .holographic {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .holographic:hover {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.2) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0.2) 100%
+            );
+            transform: translateY(-5px) rotateX(10deg) rotateY(10deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Cyberpunk Button */
+        .cyberpunk-btn {
+            position: relative;
+            padding: 1rem 2rem;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            overflow: hidden;
+        }
+
+        .cyberpunk-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: cyberpunk-shine 3s linear infinite;
+        }
+
+        @keyframes cyberpunk-shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        /* Matrix Rain Effect */
+        .matrix-bg {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .matrix-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.1;
+        }
+
+        .matrix-drop {
+            position: absolute;
+            width: 1px;
+            height: 20px;
+            background: #0f0;
+            animation: matrix-fall linear infinite;
+        }
+
+        @keyframes matrix-fall {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        /* Noise Texture */
+        .noise {
+            position: relative;
+        }
+
+        .noise::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANxM8mAAAACHRSTlMzMzMzMzMzM85JBgUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAFklEQVQ4y2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII=');
+            opacity: 0.05;
+            animation: noise 1s steps(2) infinite;
+        }
+
+        @keyframes noise {
+            0% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -5%); }
+            20% { transform: translate(-10%, 5%); }
+            30% { transform: translate(5%, -10%); }
+            40% { transform: translate(-5%, 15%); }
+            50% { transform: translate(-10%, 5%); }
+            60% { transform: translate(15%, 0); }
+            70% { transform: translate(0, 10%); }
+            80% { transform: translate(-15%, 0); }
+            90% { transform: translate(10%, 5%); }
+            100% { transform: translate(5%, 0); }
+        }
+
+        /* Retro VHS Effect */
+        .vhs {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vhs::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            animation: vhs-scan 8s linear infinite;
+        }
+
+        @keyframes vhs-scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* Futuristic Loading */
+        .future-loading {
+            width: 50px;
+            height: 50px;
+            border: 3px solid transparent;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: future-spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        }
+
+        .future-loading::before,
+        .future-loading::after {
+            content: '';
+            position: absolute;
+            border: 3px solid transparent;
+            border-radius: 50%;
+        }
+
+        .future-loading::before {
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            border-top-color: #60a5fa;
+            animation: future-spin 2s linear infinite;
+        }
+
+        .future-loading::after {
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border-top-color: #93c5fd;
+            animation: future-spin 3s ease infinite;
+        }
+
+        @keyframes future-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
+    <script>
+        // Neural Network Animation
+        function createNeuralNetwork() {
+            const container = document.querySelector('.neural-network');
+            if (!container) return;
+
+            const width = container.offsetWidth;
+            const height = container.offsetHeight;
+            const nodes = 20;
+
+            for (let i = 0; i < nodes; i++) {
+                const node = document.createElement('div');
+                node.className = 'neural-node';
+                node.style.left = `${Math.random() * width}px`;
+                node.style.top = `${Math.random() * height}px`;
+                container.appendChild(node);
+
+                // Create connections
+                for (let j = 0; j < 2; j++) {
+                    const connection = document.createElement('div');
+                    connection.className = 'neural-connection';
+                    connection.style.width = `${Math.random() * 100 + 50}px`;
+                    connection.style.left = node.style.left;
+                    connection.style.top = node.style.top;
+                    connection.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    container.appendChild(connection);
+                }
+            }
+        }
+
+        // Data Stream Animation
+        function createDataStream() {
+            const container = document.querySelector('.data-stream');
+            if (!container) return;
+
+            const chars = '01';
+            const streams = 10;
+
+            for (let i = 0; i < streams; i++) {
+                const bit = document.createElement('div');
+                bit.className = 'data-bit';
+                bit.textContent = chars[Math.floor(Math.random() * chars.length)];
+                bit.style.left = `${Math.random() * 100}%`;
+                bit.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(bit);
+            }
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', () => {
+            createNeuralNetwork();
+            createDataStream();
+
+            // Quantum effect mouse tracking
+            document.querySelectorAll('.quantum').forEach(element => {
+                element.addEventListener('mousemove', (e) => {
+                    const rect = element.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    element.style.setProperty('--x', `${(x / rect.width) * 100}%`);
+                    element.style.setProperty('--y', `${(y / rect.height) * 100}%`);
+                });
+            });
+        });
+    </script>
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // Mock login/signup functionality
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = event.target.elements[0].value;
+            
+            alert(`Successfully logged in as ${email}`);
+            closeModal('loginModal');
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            const name = event.target.elements[0].value;
+            
+            alert(`Account created for ${name}! Welcome to CivicTrust!`);
+            closeModal('signupModal');
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modals = ['loginModal', 'signupModal'];
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    closeModal(modalId);
+                }
+            });
+        }
+
+        // File Upload Handling
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-secondary');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-secondary');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-secondary');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'flex items-center justify-between bg-gray-50 p-2 rounded';
+                fileItem.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="fas fa-file-alt text-gray-400 mr-2"></i>
+                        <span class="text-sm">${file.name}</span>
+                    </div>
+                    <button class="text-red-500 hover:text-red-700" onclick="this.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        }
+
+        // Issue Form Submission
+        document.getElementById('issueForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for reporting this issue. Our team will review it shortly.');
+            e.target.reset();
+            fileList.innerHTML = '';
+        });
+
+        // Initialize all charts and counters when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            initializeCounters();
+            initializeFactCheck();
+            initializeReportForm();
+            initializeDashboard();
+        });
+
+        // Enhanced Dashboard Functionality
+        function initializeDashboard() {
+            // Budget Trend Chart
+            const budgetTrendCtx = document.createElement('canvas').getContext('2d');
+            document.querySelector('.dashboard-charts').appendChild(budgetTrendCtx.canvas);
+            
+            new Chart(budgetTrendCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Budget Utilization',
+                        data: [65, 72, 68, 75, 82, 78],
+                        borderColor: '#2563eb',
+                        tension: 0.4,
+                        fill: true,
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Update real-time stats
+            setInterval(updateDashboardData, 5000);
+        }
+
+        function updateDashboardData() {
+            const metrics = document.querySelectorAll('.metric-value');
+            metrics.forEach(metric => {
+                const currentValue = parseInt(metric.textContent);
+                const change = Math.floor(Math.random() * 10) - 5; // Random change between -5 and +5
+                const newValue = Math.max(0, currentValue + change);
+                
+                // Update value with animation
+                animateValue(metric, currentValue, newValue, 1000);
+                
+                // Update change indicator
+                const trend = metric.nextElementSibling;
+                if (change > 0) {
+                    trend.innerHTML = `<span class="text-green-500">↑ ${change}</span>`;
+                } else {
+                    trend.innerHTML = `<span class="text-red-500">↓ ${Math.abs(change)}</span>`;
+                }
+            });
+        }
+
+        function animateValue(element, start, end, duration) {
+            const range = end - start;
+            const startTime = performance.now();
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const value = start + (range * progress);
+                element.textContent = value.toFixed(1);
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        // Enhanced Counter Animation
+        function initializeCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+
+                const updateCount = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.round(current);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+
+                // Start counter when element is in view
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        if (entries[0].isIntersecting) {
+                            updateCount();
+                            observer.disconnect();
+                        }
+                    },
+                    { threshold: 0.5 }
+                );
+
+                observer.observe(counter);
+            });
+        }
+
+        // Enhanced Fact Check System
+        function initializeFactCheck() {
+            const form = document.querySelector('#factCheckForm');
+            if (!form) return;
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const claim = e.target.elements.claim.value;
+
+                // Show loading state
+                const result = document.querySelector('#factCheckResult');
+                result.innerHTML = `
+                    <div class="animate-pulse space-y-4">
+                        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+                        <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+                        <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+                    </div>
+                `;
+                result.classList.remove('hidden');
+
+                // Simulate API call
+                setTimeout(() => {
+                    const verificationResult = simulateFactCheck(claim);
+                    displayFactCheckResult(verificationResult);
+                    addToRecentFactChecks(verificationResult);
+                }, 2000);
+            });
+        }
+
+        // Simulate fact checking process
+        function simulateFactCheck(claim) {
+            const confidenceScore = Math.random();
+            let status, explanation;
+
+            if (confidenceScore > 0.7) {
+                status = 'True';
+                explanation = 'This claim is supported by multiple verified sources and official records.';
+            } else if (confidenceScore > 0.3) {
+                status = 'Partially True';
+                explanation = 'This claim contains some truth but lacks important context.';
+            } else {
+                status = 'False';
+                explanation = 'This claim is not supported by available evidence.';
+            }
+
+            return {
+                claim,
+                status,
+                explanation,
+                confidenceScore: Math.round(confidenceScore * 100),
+                timestamp: new Date()
+            };
+        }
+
+        // Display fact check results
+        function displayFactCheckResult(result) {
+            const result = document.getElementById('factCheckResult');
+            const statusColor = {
+                'True': 'success',
+                'Partially True': 'warning',
+                'False': 'danger'
+            };
+
+            result.innerHTML = `
+                <div class="bg-white/10 rounded-lg p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="badge badge-${statusColor[result.status]}">${result.status}</span>
+                        <span class="text-sm opacity-70">Confidence: ${result.confidenceScore}%</span>
+                    </div>
+                    <p class="text-lg mb-4">${result.claim}</p>
+                    <p class="text-sm opacity-80">${result.explanation}</p>
+                    <div class="mt-4 pt-4 border-t border-white/10">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm opacity-70">Verified ${new Date().toLocaleDateString()}</span>
+                            <button onclick="shareFactCheck()" class="text-sm hover:underline">
+                                <i class="fas fa-share-alt mr-1"></i>Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Add to recent fact checks
+        function addToRecentFactChecks(result) {
+            const recentChecks = document.querySelector('.recent-fact-checks');
+            if (!recentChecks) return;
+
+            const newCheck = document.createElement('div');
+            newCheck.className = 'bg-white/10 p-4 rounded-lg slide-in';
+            newCheck.innerHTML = `
+                <div class="flex items-center justify-between mb-2">
+                    <span class="badge badge-${result.status.toLowerCase()}">${result.status}</span>
+                    <span class="text-sm opacity-70">Just now</span>
+                </div>
+                <p class="text-sm">${result.claim}</p>
+            `;
+
+            recentChecks.insertBefore(newCheck, recentChecks.firstChild);
+            if (recentChecks.children.length > 3) {
+                recentChecks.removeChild(recentChecks.lastChild);
+            }
+        }
+
+        // Share fact check result
+        function shareFactCheck() {
+            // Simulate share functionality
+            showNotification('Fact check result copied to clipboard!');
+        }
+
+        // Initialize notification system
+        function initializeNotifications() {
+            const notification = document.getElementById('notification');
+            if (!notification) return;
+
+            window.showNotification = function(message) {
+                const notificationEl = document.getElementById('notification');
+                const messageEl = document.getElementById('notification-message');
+                
+                messageEl.textContent = message;
+                notificationEl.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    notificationEl.classList.add('hidden');
+                }, 3000);
+            };
+        }
+
+        // Initialize data tables
+        function initializeDataTables() {
+            const tables = document.querySelectorAll('.data-table');
+            tables.forEach(table => {
+                const rows = table.querySelectorAll('tbody tr');
+                rows.forEach(row => {
+                    row.addEventListener('click', () => {
+                        // Add click interaction
+                        row.classList.add('bg-gray-50');
+                        setTimeout(() => row.classList.remove('bg-gray-50'), 200);
+                    });
+                });
+            });
+        }
+
+        // Clear fact check form
+        function clearFactCheck() {
+            const form = document.getElementById('factCheckForm');
+            const result = document.getElementById('factCheckResult');
+            
+            if (form) form.reset();
+            if (result) result.classList.add('hidden');
+        }
+    </script>
+    <script>
+        // Intersection Observer for scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.scroll-reveal').forEach((el) => observer.observe(el));
+        });
+
+        // Modern Search Implementation
+        const aiSearch = document.getElementById('aiSearch');
+        if (aiSearch) {
+            aiSearch.addEventListener('input', debounce(async (e) => {
+                const query = e.target.value;
+                if (query.length < 2) return;
+
+                const searchResults = document.getElementById('searchResults');
+                const searchLoading = document.getElementById('searchLoading');
+                
+                searchResults.classList.remove('hidden');
+                searchLoading.classList.remove('hidden');
+
+                try {
+                    // Simulate AI search
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    // Add actual AI search implementation here
+                    
+                    searchLoading.classList.add('hidden');
+                    // Update results
+                } catch (error) {
+                    console.error('Search error:', error);
+                }
+            }, 300));
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Improved Modal Handling
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('fade-in');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('fade-out');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('fade-out');
+                    document.body.style.overflow = 'auto';
+                }, 300);
+            }
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', 
+                document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+            );
+        }
+
+        // Initialize theme
+        if (localStorage.theme === 'dark' || 
+            (!('theme' in localStorage) && 
+             window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</head>
+<body class="bg-gray-900">
+    <!-- Navigation -->
+<nav class="fixed top-0 left-0 w-full z-50 gradient-primary text-white">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+            <a href="index.html" class="flex items-center space-x-2">
+                <span class="text-xl font-bold">🔍 CivicTrust</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="nav-link hover:text-blue-200">Home</a>
+                <a href="transparency-tracker.html" class="nav-link hover:text-blue-200">Transparency Tracker</a>
+                <a href="fact-check-hub.html" class="nav-link hover:text-blue-200">Fact-Check Hub</a>
+                <a href="report-issue.html" class="nav-link hover:text-blue-200">Report an Issue</a>
+                <a href="news-insights.html" class="nav-link hover:text-blue-200">News & Insights</a>
+                <a href="community-forum.html" class="nav-link hover:text-blue-200">Community Forum</a>
+                <a href="about.html" class="nav-link hover:text-blue-200">About & Contact</a>
+                <div class="flex items-center space-x-4">
+                    <button onclick="openModal('loginModal')" class="nav-link hover:text-blue-200">Login/Sign Up</button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-white focus:outline-none" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Home</a>
+                <a href="transparency-tracker.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Transparency Tracker</a>
+                <a href="fact-check-hub.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Fact-Check Hub</a>
+                <a href="report-issue.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Report an Issue</a>
+                <a href="news-insights.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">News & Insights</a>
+                <a href="community-forum.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Community Forum</a>
+                <a href="about.html" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">About & Contact</a>
+                <a href="#" class="block px-3 py-2 text-white hover:bg-blue-600 rounded-md">Login/Sign Up</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <!-- Notification System -->
+    <div id="notificationCenter" class="fixed top-20 right-4 w-80 z-50 transform translate-x-full transition-transform duration-300">
+        <div class="bg-white rounded-lg">
+            <div class="p-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-semibold">Notifications</h3>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="markAllNotificationsRead()" class="text-sm text-primary hover:text-primary-dark">
+                            Mark all read
+                        </button>
+                        <button onclick="toggleNotificationCenter()" class="text-gray-400 hover:text-gray-600">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="max-h-96 overflow-y-auto">
+                <div id="notificationList" class="divide-y divide-gray-100">
+                    <!-- Notifications will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Toast Notifications -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-50 space-y-2">
+        <!-- Toast notifications will be dynamically added here -->
+    </div>
+
+    <style>
+        /* Navigation Styles */
+        .nav-link {
+            @apply flex items-center text-white/80 hover:text-white transition-colors relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            @apply absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300;
+        }
+
+        .nav-link:hover::after {
+            @apply w-full;
+        }
+
+        .btn-nav {
+            @apply px-4 py-2 flex items-center text-white/90 hover:text-white transition-colors;
+        }
+
+        .btn-nav-highlight {
+            @apply px-4 py-2 flex items-center bg-accent text-white rounded-lg hover:bg-accent/90 transition-all transform hover:scale-105;
+        }
+
+        .mobile-nav-link {
+            @apply flex items-center text-white/80 hover:text-white py-3 px-4 rounded-lg transition-colors;
+        }
+
+        .mobile-nav-button {
+            @apply flex items-center w-full text-white/80 hover:text-white py-3 px-4 rounded-lg transition-colors;
+        }
+
+        .mobile-nav-button-highlight {
+            @apply flex items-center w-full text-white bg-accent hover:bg-accent/90 py-3 px-4 rounded-lg transition-colors;
+        }
+
+        /* Tooltip Styles */
+        [data-tooltip] {
+            position: relative;
+        }
+
+        [data-tooltip]:before {
+            content: attr(data-tooltip);
+            @apply absolute bottom-full left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-900 text-white text-sm rounded opacity-0 invisible transition-all duration-200 whitespace-nowrap;
+            margin-bottom: 5px;
+        }
+
+        [data-tooltip]:hover:before {
+            @apply opacity-100 visible;
+        }
+
+        /* Search Results Animation */
+        @keyframes searchPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .search-result-item {
+            @apply p-3 hover:bg-gray-50 cursor-pointer transition-colors rounded-lg;
+            animation: searchPulse 2s infinite;
+        }
+
+        /* Mobile Menu Animation */
+        .mobile-menu-open {
+            transform: translateX(0) !important;
+        }
+    </style>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600">
+        <!-- Animated Background -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="particles-network cyber-grid"></div>
+        </div>
+
+        <!-- Floating Particles -->
+        <div class="absolute inset-0 pointer-events-none neural-network">
+            <!-- Neural nodes will be added dynamically -->
+        </div>
+
+        <div class="container mx-auto px-4 py-16 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="text-white space-y-8">
+                    <div class="glitch mb-4" data-text="CivicTrust">
+                        <span class="text-sm tracking-wider text-blue-300 quantum">POWERED BY AI & BLOCKCHAIN</span>
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-bold leading-tight animate-fade-in hologram">
+                        Know the Truth.<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-blue-400 power-surge">Demand Transparency.</span>
+                    </h1>
+                    <p class="text-xl text-blue-100 animate-slide-up delay-200 typing-text">
+                        AI-powered fact-checking & real-time governance tracking.
+                    </p>
+
+                    <!-- Trust Metrics -->
+                    <div class="grid grid-cols-3 gap-4 my-8">
+                        <div class="text-center energy-field p-4 rounded-lg bg-white/10 backdrop-blur-sm">
+                            <div class="text-2xl font-bold stats-counter" data-target="98">98%</div>
+                            <div class="text-sm text-blue-200">Accuracy Rate</div>
+                        </div>
+                        <div class="text-center energy-field p-4 rounded-lg bg-white/10 backdrop-blur-sm">
+                            <div class="text-2xl font-bold stats-counter" data-target="5000">5K+</div>
+                            <div class="text-sm text-blue-200">Daily Verifications</div>
+                        </div>
+                        <div class="text-center energy-field p-4 rounded-lg bg-white/10 backdrop-blur-sm">
+                            <div class="text-2xl font-bold stats-counter" data-target="1000000">1M+</div>
+                            <div class="text-sm text-blue-200">Citizens Served</div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 animate-slide-up delay-300">
+                        <a href="fact-check.html" class="btn-primary liquid-btn cyberpunk-btn">
+                            <i class="fas fa-search mr-2"></i>
+                            Fact-Check Now
+                            <div class="spotlight"></div>
+                        </a>
+                        <a href="transparency-tracker.html" class="btn-secondary wave-btn rainbow-border">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            Track Government Spending
+                        </a>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <button class="p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all quantum-pair">
+                            <i class="fas fa-newspaper text-xl mb-2"></i>
+                            <span class="block text-sm">Latest Reports</span>
+                        </button>
+                        <button class="p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all quantum-pair">
+                            <i class="fas fa-bullhorn text-xl mb-2"></i>
+                            <span class="block text-sm">Submit Issue</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Content - Live AI Verification -->
+                <div class="relative hidden lg:block">
+                    <!-- AI Processing Card -->
+                    <div class="verification-animation holographic">
+                        <div class="verification-card p-6 mb-4 scanner">
+                            <div class="flex items-center mb-4">
+                                <div class="animate-pulse bg-green-400 h-3 w-3 rounded-full mr-2"></div>
+                                <span class="text-green-400">Live Verification</span>
+                            </div>
+                            <p class="text-gray-200 mb-4">"Government allocates ₹500Cr for education"</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-blue-200">AI Analysis: 98% Accurate</span>
+                                <span class="text-green-400"><i class="fas fa-check-circle"></i> Verified</span>
+                            </div>
+                        </div>
+
+                        <!-- Live Processing Feed -->
+                        <div class="space-y-4 data-stream">
+                            <div class="p-4 rounded-lg bg-white/5 backdrop-blur-sm">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm text-blue-300">Processing</span>
+                                    <div class="future-loading w-4 h-4"></div>
+                                </div>
+                                <p class="text-sm text-gray-300">Analyzing public records...</p>
+                                <div class="w-full h-1 bg-white/20 rounded-full mt-2">
+                                    <div class="h-full w-2/3 bg-blue-500 rounded-full progress-bar"></div>
+                                </div>
+                            </div>
+
+                            <!-- Recent Verifications -->
+                            <div class="vhs p-4 rounded-lg bg-white/5 backdrop-blur-sm">
+                                <h4 class="text-sm font-semibold text-blue-300 mb-2">Recent Verifications</h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-center text-green-400">
+                                        <i class="fas fa-check-circle mr-2"></i>
+                                        Infrastructure project timeline
+                                    </li>
+                                    <li class="flex items-center text-red-400">
+                                        <i class="fas fa-times-circle mr-2"></i>
+                                        Budget allocation claim
+                                    </li>
+                                    <li class="flex items-center text-yellow-400">
+                                        <i class="fas fa-exclamation-circle mr-2"></i>
+                                        Healthcare initiative status
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Real-time Stats -->
+                    <div class="absolute -right-10 top-1/2 transform -translate-y-1/2">
+                        <div class="space-y-6">
+                            <div class="w-2 h-20 bg-white/20 rounded-full overflow-hidden">
+                                <div class="w-full h-3/4 bg-green-400 rounded-full animate-pulse"></div>
+                            </div>
+                            <div class="w-2 h-20 bg-white/20 rounded-full overflow-hidden">
+                                <div class="w-full h-1/2 bg-blue-400 rounded-full animate-pulse"></div>
+                            </div>
+                            <div class="w-2 h-20 bg-white/20 rounded-full overflow-hidden">
+                                <div class="w-full h-1/4 bg-purple-400 rounded-full animate-pulse"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Highlights -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-5 gap-8">
+                <div class="text-center text-white/80">
+                    <i class="fas fa-shield-alt text-2xl mb-2 hologram"></i>
+                    <h3 class="text-lg font-semibold">Blockchain Secured</h3>
+                    <p class="text-sm">Immutable verification records</p>
+                </div>
+                <div class="text-center text-white/80">
+                    <i class="fas fa-brain text-2xl mb-2 hologram"></i>
+                    <h3 class="text-lg font-semibold">AI Powered</h3>
+                    <p class="text-sm">Advanced neural networks</p>
+                </div>
+                <div class="text-center text-white/80">
+                    <i class="fas fa-users text-2xl mb-2 hologram"></i>
+                    <h3 class="text-lg font-semibold">Community Driven</h3>
+                    <p class="text-sm">Crowdsourced verification</p>
+                </div>
+                <div class="text-center text-white/80 quantum-pair">
+                    <i class="fas fa-chart-network text-2xl mb-2 hologram power-surge"></i>
+                    <h3 class="text-lg font-semibold">Real-time Analytics</h3>
+                    <p class="text-sm">Live data processing & insights</p>
+                    <div class="mt-2">
+                        <div class="w-16 h-1 mx-auto bg-white/20 rounded-full overflow-hidden">
+                            <div class="w-full h-full bg-blue-400 rounded-full animate-pulse scanner"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center text-white/80 energy-field">
+                    <i class="fas fa-fingerprint text-2xl mb-2 hologram cyber-grid"></i>
+                    <h3 class="text-lg font-semibold">Smart Contracts</h3>
+                    <p class="text-sm">Automated trust protocols</p>
+                    <div class="mt-2 data-stream">
+                        <div class="text-xs font-mono opacity-50">
+                            <span class="typing-text">0x7F...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Activity Dashboard -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Live Community Activity</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Activity Stats -->
+                <div class="glass-card p-6 rounded-lg text-center transform hover:scale-105 transition-transform">
+                    <i class="fas fa-users text-4xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Active Users</h3>
+                    <p id="activeUsers" class="text-3xl font-bold text-blue-600 counter-value" data-target="3547">0</p>
+                    <p class="text-sm text-gray-600 mt-2">Currently Online</p>
+                </div>
+
+                <!-- Issues Tracked -->
+                <div class="glass-card p-6 rounded-lg text-center transform hover:scale-105 transition-transform">
+                    <i class="fas fa-chart-line text-4xl text-green-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Issues Tracked</h3>
+                    <p id="issuesTracked" class="text-3xl font-bold text-green-600 counter-value" data-target="12458">0</p>
+                    <p class="text-sm text-gray-600 mt-2">This Month</p>
+                </div>
+
+                <!-- Community Votes -->
+                <div class="glass-card p-6 rounded-lg text-center transform hover:scale-105 transition-transform">
+                    <i class="fas fa-vote-yea text-4xl text-purple-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Community Votes</h3>
+                    <p id="communityVotes" class="text-3xl font-bold text-purple-600 counter-value" data-target="45892">0</p>
+                    <p class="text-sm text-gray-600 mt-2">Total Votes</p>
+                </div>
+
+                <!-- Fact Checks -->
+                <div class="glass-card p-6 rounded-lg text-center transform hover:scale-105 transition-transform">
+                    <i class="fas fa-check-double text-4xl text-orange-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Fact Checks</h3>
+                    <p id="factChecks" class="text-3xl font-bold text-orange-600 counter-value" data-target="8234">0</p>
+                    <p class="text-sm text-gray-600 mt-2">Completed</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Insights -->
+    <section class="py-20 bg-gray-50">
+        <div class="glass-card p-6 rounded-lg">
+            <h3 class="text-2xl font-bold mb-6">Trending Issues</h3>
+            <div id="trendingChart" class="h-64"></div>
+            <div class="grid grid-cols-2 gap-4 mt-6">
+                <div class="p-4 bg-blue-50 rounded-lg">
+                    <h4 class="font-semibold text-blue-800">Issue Categories</h4>
+                    <ul class="mt-2 space-y-2">
+                        <li class="flex justify-between">
+                            <span>Infrastructure</span>
+                            <span class="font-medium">35%</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Budget</span>
+                            <span class="font-medium">28%</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Public Services</span>
+                            <span class="font-medium">22%</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-4 bg-green-50 rounded-lg">
+                    <h4 class="font-semibold text-green-800">Priority Level</h4>
+                    <ul class="mt-2 space-y-2">
+                        <li class="flex justify-between">
+                            <span>High</span>
+                            <span class="font-medium">42%</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Medium</span>
+                            <span class="font-medium">35%</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Low</span>
+                            <span class="font-medium">23%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+                <!-- Community Engagement -->
+                <div class="glass-card p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-6">Community Engagement</h3>
+                    <div id="engagementChart" class="h-64"></div>
+                    <div class="grid grid-cols-2 gap-4 mt-4">
+                        <div class="text-center p-3 bg-blue-50 rounded-lg">
+                            <p class="text-sm text-gray-600">Response Rate</p>
+                            <p id="responseRate" class="text-2xl font-bold text-green-600">94%</p>
+                            <p class="text-xs text-gray-500">+5% this week</p>
+                        </div>
+                        <div class="text-center p-3 bg-blue-50 rounded-lg">
+                            <p class="text-sm text-gray-600">Avg. Resolution Time</p>
+                            <p id="resolutionTime" class="text-2xl font-bold text-blue-600">2.5 days</p>
+                            <p class="text-xs text-gray-500">-12hrs improvement</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-3">Top Contributors</h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-blue-200 rounded-full flex items-center justify-center">
+                                        <span class="text-sm font-medium">JD</span>
+                                    </div>
+                                    <span class="ml-2">John Doe</span>
+                                </div>
+                                <span class="text-sm font-medium">127 contributions</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-green-200 rounded-full flex items-center justify-center">
+                                        <span class="text-sm font-medium">AS</span>
+                                    </div>
+                                    <span class="ml-2">Alice Smith</span>
+                                </div>
+                                <span class="text-sm font-medium">98 contributions</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-purple-200 rounded-full flex items-center justify-center">
+                                        <span class="text-sm font-medium">RJ</span>
+                                    </div>
+                                    <span class="ml-2">Robert Johnson</span>
+                                </div>
+                                <span class="text-sm font-medium">85 contributions</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </section>
+
+    <!-- Latest Activity Feed -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Latest Community Activity</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Recent Reports -->
+                <div class="glass-card p-6 rounded-lg">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">Recent Reports</h3>
+                        <button onclick="refreshReports()" class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                    <div id="recentReports" class="space-y-4">
+                        <!-- Reports will be dynamically added here -->
+                    </div>
+                </div>
+
+                <!-- Active Discussions -->
+                <div class="glass-card p-6 rounded-lg">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">Active Discussions</h3>
+                        <button onclick="refreshDiscussions()" class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                    <div id="activeDiscussions" class="space-y-4">
+                        <!-- Discussions will be dynamically added here -->
+                    </div>
+                </div>
+
+                <!-- Latest Verifications -->
+                <div class="glass-card p-6 rounded-lg">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">Latest Verifications</h3>
+                        <button onclick="refreshVerifications()" class="text-blue-600 hover:text-blue-800">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                    <div id="latestVerifications" class="space-y-4">
+                        <!-- Verifications will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize all charts and components
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTrendingChart();
+            initializeEngagementChart();
+            updateActivityFeed();
+            initializeCounters();
+            
+            // Update live stats periodically
+            setInterval(updateLiveStats, 3000);
+        });
+
+        function initializeCounters() {
+            const counters = document.querySelectorAll('.counter-value');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000; // 2 seconds
+                animateValue(counter, 0, target, duration);
+            });
+        }
+
+        function animateValue(element, start, end, duration) {
+            const range = end - start;
+            const increment = range / (duration / 16);
+            let current = start;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= end) {
+                    clearInterval(timer);
+                    current = end;
+                }
+                element.textContent = Math.floor(current).toLocaleString();
+            }, 16);
+        }
+
+        function initializeTrendingChart() {
+            const options = {
+                series: [{
+                    name: 'Issue Reports',
+                    data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+                }],
+                chart: {
+                    type: 'area',
+                    height: 250,
+                    toolbar: { show: false },
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800
+                    }
+                },
+                stroke: {
+                    curve: 'smooth'
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.9,
+                        stops: [0, 90, 100]
+                    }
+                }
+            };
+
+            const chart = new ApexCharts(document.querySelector("#trendingChart"), options);
+            chart.render();
+
+            // Add trending items
+            const trendingItems = [
+                { title: 'Budget Transparency', trend: '+45%' },
+                { title: 'Infrastructure Projects', trend: '+32%' },
+                { title: 'Education Initiatives', trend: '+28%' }
+            ];
+
+            document.getElementById('trendingList').innerHTML = trendingItems.map(item => `
+                <div class="flex justify-between items-center p-3 bg-white rounded-lg shadow-sm">
+                    <span class="font-medium">${item.title}</span>
+                    <span class="text-green-600 font-semibold">${item.trend}</span>
+                </div>
+            `).join('');
+        }
+
+        function initializeEngagementChart() {
+            const options = {
+                series: [75, 85, 65, 90],
+                chart: {
+                    type: 'radialBar',
+                    height: 250,
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800
+                    }
+                },
+                plotOptions: {
+                    radialBar: {
+                        dataLabels: {
+                            name: { show: true },
+                            value: { show: true }
+                        }
+                    }
+                },
+                labels: ['Reports', 'Discussions', 'Votes', 'Verifications']
+            };
+
+            const chart = new ApexCharts(document.querySelector("#engagementChart"), options);
+            chart.render();
+        }
+
+        function updateActivityFeed() {
+            // Sample data for recent reports
+            const reports = [
+                { title: 'Road Maintenance Issue', status: 'New', time: '2 mins ago' },
+                { title: 'Public Park Cleanup', status: 'In Progress', time: '15 mins ago' },
+                { title: 'Street Light Outage', status: 'Resolved', time: '1 hour ago' }
+            ];
+
+            // Sample data for active discussions
+            const discussions = [
+                { title: 'City Budget 2025', participants: 45, replies: 128 },
+                { title: 'New Community Center', participants: 32, replies: 89 },
+                { title: 'Public Transport Plan', participants: 28, replies: 76 }
+            ];
+
+            // Sample data for verifications
+            const verifications = [
+                { claim: 'Budget Allocation Claim', status: 'Verified', confidence: '95%' },
+                { claim: 'Infrastructure Project', status: 'Under Review', confidence: '82%' },
+                { claim: 'Education Initiative', status: 'Verified', confidence: '91%' }
+            ];
+
+            // Update recent reports
+            document.getElementById('recentReports').innerHTML = reports.map(report => `
+                <div class="flex justify-between items-center p-3 bg-white rounded-lg shadow-sm">
+                    <div>
+                        <h4 class="font-semibold">${report.title}</h4>
+                        <p class="text-sm text-gray-600">${report.time}</p>
+                    </div>
+                    <span class="px-2 py-1 text-sm rounded ${getStatusClass(report.status)}">
+                        ${report.status}
+                    </span>
+                </div>
+            `).join('');
+
+            // Update active discussions
+            document.getElementById('activeDiscussions').innerHTML = discussions.map(discussion => `
+                <div class="p-3 bg-white rounded-lg shadow-sm">
+                    <h4 class="font-semibold">${discussion.title}</h4>
+                    <div class="flex justify-between mt-2 text-sm text-gray-600">
+                        <span>${discussion.participants} participants</span>
+                        <span>${discussion.replies} replies</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Update latest verifications
+            document.getElementById('latestVerifications').innerHTML = verifications.map(verification => `
+                <div class="p-3 bg-white rounded-lg shadow-sm">
+                    <h4 class="font-semibold">${verification.claim}</h4>
+                    <div class="flex justify-between mt-2">
+                        <span class="text-sm ${verification.status === 'Verified' ? 'text-green-600' : 'text-orange-600'}">
+                            ${verification.status}
+                        </span>
+                        <span class="text-sm font-medium">${verification.confidence}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getStatusClass(status) {
+            const classes = {
+                'New': 'bg-blue-100 text-blue-800',
+                'In Progress': 'bg-yellow-100 text-yellow-800',
+                'Resolved': 'bg-green-100 text-green-800'
+            };
+            return classes[status] || '';
+        }
+
+        function updateLiveStats() {
+            // Update counters with small random changes
+            document.querySelectorAll('.counter-value').forEach(counter => {
+                const currentValue = parseInt(counter.textContent.replace(/,/g, ''));
+                const change = Math.floor(Math.random() * 21) - 10; // Random change between -10 and +10
+                counter.textContent = (currentValue + change).toLocaleString();
+            });
+
+            // Update response rate and resolution time with small fluctuations
+            const responseRate = document.getElementById('responseRate');
+            const resolutionTime = document.getElementById('resolutionTime');
+            
+            const currentRate = parseInt(responseRate.textContent);
+            responseRate.textContent = (currentRate + Math.random() * 2 - 1).toFixed(1) + '%';
+            
+            const currentTime = parseFloat(resolutionTime.textContent);
+            resolutionTime.textContent = (currentTime + Math.random() * 0.2 - 0.1).toFixed(1) + ' days';
+        }
+
+        function refreshReports() {
+            updateActivityFeed();
+        }
+
+        function refreshDiscussions() {
+            updateActivityFeed();
+        }
+
+        function refreshVerifications() {
+            updateActivityFeed();
+        }
+    </script>
+
+    <!-- Key Features Grid -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Empowering Features</h2>
+            
+            <!-- Feature Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- AI-Powered Fact-Checking -->
+                <div class="feature-card">
+                    <div class="text-primary mb-6">
+                        <i class="fas fa-robot text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">🚀 AI-Powered Fact-Checking</h3>
+                    <p class="text-gray-600">Verify government claims & rumors with advanced AI technology.</p>
+                </div>
+
+                <!-- Transparency Tracker -->
+                <div class="feature-card">
+                    <div class="text-primary mb-6">
+                        <i class="fas fa-chart-line text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">💰 Transparency Tracker</h3>
+                    <p class="text-gray-600">Monitor public spending with real-time insights.</p>
+                </div>
+
+                <!-- Crowdsourced Reports -->
+                <div class="feature-card">
+                    <div class="text-primary mb-6">
+                        <i class="fas fa-bullhorn text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">📣 Crowdsourced Reports</h3>
+                    <p class="text-gray-600">Citizens report and track governance failures.</p>
+                </div>
+
+                <!-- Community Discussions -->
+                <div class="feature-card">
+                    <div class="text-primary mb-6">
+                        <i class="fas fa-comments text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">📜 Community Discussions</h3>
+                    <p class="text-gray-600">Open forums for policy debates.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Updates & Verified Reports -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Live Updates & Verified Reports</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Fact-Checked Reports -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-2xl font-bold mb-6">Recent Fact-Checks</h3>
+                    <div class="space-y-4">
+                        <div class="fact-check-item">
+                            <div class="flex items-center mb-2">
+                                <span class="text-green-500 mr-2"><i class="fas fa-check-circle"></i></span>
+                                <span class="font-semibold">True</span>
+                            </div>
+                            <p class="text-gray-700">"New healthcare initiative launched in rural areas"</p>
+                            <div class="text-sm text-gray-500 mt-2">Verified 2 hours ago</div>
+                        </div>
+
+                        <div class="fact-check-item">
+                            <div class="flex items-center mb-2">
+                                <span class="text-red-500 mr-2"><i class="fas fa-times-circle"></i></span>
+                                <span class="font-semibold">False</span>
+                            </div>
+                            <p class="text-gray-700">"Government cuts education budget"</p>
+                            <div class="text-sm text-gray-500 mt-2">Verified 3 hours ago</div>
+                        </div>
+
+                        <div class="fact-check-item">
+                            <div class="flex items-center mb-2">
+                                <span class="text-yellow-500 mr-2"><i class="fas fa-exclamation-circle"></i></span>
+                                <span class="font-semibold">Misleading</span>
+                            </div>
+                            <p class="text-gray-700">"Infrastructure project completion status"</p>
+                            <div class="text-sm text-gray-500 mt-2">Verified 4 hours ago</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trending Issues -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-2xl font-bold mb-6">Trending Issues</h3>
+                    <div class="space-y-4">
+                        <div class="trending-item">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-semibold text-primary">#UrbanDevelopment</span>
+                                <span class="text-sm text-gray-500">1.2K discussions</span>
+                            </div>
+                            <p class="text-gray-700">Metro expansion project timeline and budget analysis</p>
+                        </div>
+
+                        <div class="trending-item">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-semibold text-primary">#Healthcare</span>
+                                <span class="text-sm text-gray-500">856 discussions</span>
+                            </div>
+                            <p class="text-gray-700">New hospital construction progress and funding allocation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Report an Issue Section -->
+    <section id="report-issue" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Report an Issue</h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <form id="reportForm" class="space-y-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Issue Category</label>
+                            <select class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                                <option>Infrastructure</option>
+                                <option>Public Services</option>
+                                <option>Healthcare</option>
+                                <option>Education</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Issue Title</label>
+                            <input type="text" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" 
+                                   placeholder="Brief description of the issue">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Detailed Description</label>
+                            <textarea class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary h-32" 
+                                      placeholder="Provide detailed information about the issue"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Location</label>
+                            <input type="text" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" 
+                                   placeholder="Where is this issue located?">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Evidence Upload</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                                <p class="text-gray-500">Drag and drop files here or click to upload</p>
+                                <input type="file" class="hidden" multiple>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full btn-primary py-3 rounded-lg">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Submit Report
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof & Impact -->
+    <section class="py-20 bg-gradient-to-br from-blue-900 to-blue-700 text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Our Impact</h2>
+
+            <!-- Impact Metrics -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="impact-card text-center">
+                    <div class="text-4xl font-bold mb-2 counter" data-target="10000000">10M+</div>
+                    <p class="text-xl">Fact-Checks Completed</p>
+                </div>
+                <div class="impact-card text-center">
+                    <div class="text-4xl font-bold mb-2">₹<span class="counter" data-target="500">500</span>M+</div>
+                    <p class="text-xl">Misuse Exposed</p>
+                </div>
+                <div class="impact-card text-center">
+                    <div class="text-4xl font-bold mb-2 counter" data-target="5000">5K+</div>
+                    <p class="text-xl">Resolved Reports</p>
+                </div>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="max-w-4xl mx-auto">
+                <div class="testimonial-slider">
+                    <div class="testimonial-card bg-white/10 backdrop-blur-md rounded-xl p-8 text-center">
+                        <div class="mb-6">
+                            <img src="https://ui-avatars.com/api/?name=John+Doe" alt="User" 
+                                 class="w-20 h-20 rounded-full mx-auto">
+                        </div>
+                        <p class="text-lg mb-4">"CivicTrust has revolutionized how we verify government claims. The AI-powered fact-checking is incredibly accurate."</p>
+                        <div class="font-semibold">Priya Sharma</div>
+                        <div class="text-blue-200">Investigative Journalist</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">About CivicTrust</h3>
+                    <p class="text-gray-400">Empowering citizens through transparency and accountability in governance.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Features</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Newsletter</h3>
+                    <form class="space-y-4">
+                        <input type="email" placeholder="Enter your email" 
+                               class="w-full px-4 py-2 border rounded-lg bg-gray-800 text-white border border-gray-700">
+                        <button type="submit" class="w-full px-4 py-2 bg-primary rounded-lg hover:bg-opacity-90">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 CivicTrust. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Component -->
+    <div id="notification" class="notification hidden">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+            <span id="notification-message"></span>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="bg-white rounded-xl p-8 max-w-md w-full">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">Login</h3>
+                    <button onclick="closeModal('loginModal')" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form onsubmit="handleLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Email</label>
+                        <input type="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Password</label>
+                        <input type="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" required>
+                    </div>
+                    <button type="submit" class="w-full py-3 gradient-primary text-white rounded-lg hover:opacity-90 transition">
+                        Login
+                    </button>
+                </form>
+                
+                <div class="mt-6">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 grid grid-cols-3 gap-3">
+                        <button onclick="handleGoogleLogin()" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition">
+                            <i class="fab fa-google text-xl"></i>
+                        </button>
+                        <button onclick="handleFacebookLogin()" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </button>
+                        <button onclick="handleTwitterLogin()" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="bg-white rounded-xl p-8 max-w-md w-full">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">Sign Up</h3>
+                    <button onclick="closeModal('signupModal')" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form onsubmit="handleSignup(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Full Name</label>
+                        <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Email</label>
+                        <input type="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Password</label>
+                        <input type="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" required>
+                    </div>
+                    <button type="submit" class="w-full py-3 gradient-primary text-white rounded-lg hover:opacity-90 transition">
+                        Create Account
+                    </button>
+                </form>
+
+                <div class="mt-6">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">Or sign up with</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 grid grid-cols-3 gap-3">
+                        <button onclick="handleGoogleSignup()" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition">
+                            <i class="fab fa-google text-xl"></i>
+                        </button>
+                        <button onclick="handleFacebookSignup()" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </button>
+                        <button onclick="handleTwitterSignup()" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Social Login Handlers
+        function handleGoogleLogin() {
+            // TODO: Implement Google OAuth login
+            console.log('Google login clicked');
+            alert('Google login will be implemented with proper OAuth integration');
+        }
+
+        function handleFacebookLogin() {
+            // TODO: Implement Facebook OAuth login
+            console.log('Facebook login clicked');
+            alert('Facebook login will be implemented with proper OAuth integration');
+        }
+
+        function handleTwitterLogin() {
+            // TODO: Implement Twitter OAuth login
+            console.log('Twitter login clicked');
+            alert('Twitter login will be implemented with proper OAuth integration');
+        }
+
+        function handleGoogleSignup() {
+            // TODO: Implement Google OAuth signup
+            console.log('Google signup clicked');
+            alert('Google signup will be implemented with proper OAuth integration');
+        }
+
+        function handleFacebookSignup() {
+            // TODO: Implement Facebook OAuth signup
+            console.log('Facebook signup clicked');
+            alert('Facebook signup will be implemented with proper OAuth integration');
+        }
+
+        function handleTwitterSignup() {
+            // TODO: Implement Twitter OAuth signup
+            console.log('Twitter signup clicked');
+            alert('Twitter signup will be implemented with proper OAuth integration');
+        }
+    </script>
+    <script>
+        // Initialize scroll reveal animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.feature-card, .fact-check-item, .trending-item, .impact-card')
+                .forEach(el => {
+                    el.classList.add('scroll-reveal');
+                    observer.observe(el);
+                });
+
+            // Initialize counters
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+
+                const updateCount = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.round(current);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+
+                // Start counter when element is in view
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        if (entries[0].isIntersecting) {
+                            updateCount();
+                            observer.disconnect();
+                        }
+                    },
+                    { threshold: 0.5 }
+                );
+
+                observer.observe(counter);
+            });
+        });
+    </script>
+    <script>
+        // Particle Background Effect
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = Math.random() * 5 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 3000);
+        }
+
+        setInterval(createParticle, 200);
+
+        // Magnetic Button Effect
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                btn.style.transform = `translate(${x/10}px, ${y/10}px)`;
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+            });
+        });
+
+        // Interactive Stats Counter
+        document.querySelectorAll('.stats-counter').forEach(counter => {
+            counter.addEventListener('mouseenter', () => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 1500;
+                const step = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += step;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toLocaleString();
+                    }
+                };
+
+                updateCounter();
+            });
+        });
+
+        // Tilt Effect
+        document.querySelectorAll('.tilt').forEach(element => {
+            element.addEventListener('mousemove', (e) => {
+                const rect = element.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            element.addEventListener('mouseleave', () => {
+                element.style.transform = '';
+            });
+        });
+    </script>
+</body>
+</html>
